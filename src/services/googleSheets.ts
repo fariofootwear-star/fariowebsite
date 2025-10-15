@@ -15,7 +15,6 @@ interface FormData {
 // 2. Go to Extensions > Apps Script
 // 3. Create a new script with the code provided below
 // 4. Deploy as web app and get the URL
-const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbw_xqEHZwnMVu33sh-m_DmNoKTjGj6Qzoj028LKhCjRNsL1GScTzk6-7_yyotP5upe4/exec';
 
 // Google Apps Script code to paste in your Google Sheets:
 /*
@@ -53,54 +52,37 @@ function doPost(e) {
 */
 
 export const submitToGoogleSheets = async (formData: FormData): Promise<boolean> => {
-  // For demo purposes, if no URL is configured, simulate success
-  if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/AKfycbw_xqEHZwnMVu33sh-m_DmNoKTjGj6Qzoj028LKhCjRNsL1GScTzk6-7_yyotP5upe4/exec') {
-    console.log('Google Sheets integration not configured. Form data:', formData);
-    
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Store in localStorage as fallback for demo
-    const existingData = JSON.parse(localStorage.getItem('fario_leads') || '[]');
-    existingData.push({
-      ...formData,
-      timestamp: new Date().toISOString(),
-      id: Date.now()
-    });
-    localStorage.setItem('fario_leads', JSON.stringify(existingData));
-    
-    return true;
-  }
+  const GOOGLE_SHEETS_URL =
+    'https://script.google.com/macros/s/AKfycbw_xqEHZwnMVu33sh-m_DmNoKTjGj6Qzoj028LKhCjRNsL1GScTzk6-7_yyotP5upe4/exec';
 
-  try {
-    const response = await fetch(GOOGLE_SHEETS_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...formData,
-        timestamp: new Date().toISOString()
-      })
+  return new Promise((resolve, reject) => {
+    const callbackName = 'jsonpCallback_' + Math.floor(Math.random() * 1000000);
+    (window as any)[callbackName] = (response: any) => {
+      delete (window as any)[callbackName];
+      script.remove();
+      if (response.success) resolve(true);
+      else reject(response);
+    };
+
+    const params = new URLSearchParams({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      source: formData.source || 'unknown',
+      callback: callbackName,
     });
 
-    const result = await response.json();
-    return result.success === true;
-  } catch (error) {
-    console.error('Error submitting to Google Sheets:', error);
-    
-    // Fallback to localStorage
-    const existingData = JSON.parse(localStorage.getItem('fario_leads') || '[]');
-    existingData.push({
-      ...formData,
-      timestamp: new Date().toISOString(),
-      id: Date.now()
-    });
-    localStorage.setItem('fario_leads', JSON.stringify(existingData));
-    
-    return true; // Return true so user experience isn't affected
-  }
+    const script = document.createElement('script');
+    script.src = `${GOOGLE_SHEETS_URL}?${params.toString()}`;
+    script.onerror = () => {
+      delete (window as any)[callbackName];
+      script.remove();
+      reject(new Error('JSONP request failed'));
+    };
+    document.body.appendChild(script);
+  });
 };
+
 
 // Function to get stored leads (for demo/admin purposes)
 export const getStoredLeads = (): FormData[] => {
