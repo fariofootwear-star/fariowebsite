@@ -15,7 +15,7 @@ interface FormData {
 // 2. Go to Extensions > Apps Script
 // 3. Create a new script with the code provided below
 // 4. Deploy as web app and get the URL
-const GOOGLE_SHEETS_URL = 'YOUR_GOOGLE_SHEETS_WEB_APP_URL_HERE';
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbw_xqEHZwnMVu33sh-m_DmNoKTjGj6Qzoj028LKhCjRNsL1GScTzk6-7_yyotP5upe4/exec';
 
 // Google Apps Script code to paste in your Google Sheets:
 /*
@@ -54,7 +54,7 @@ function doPost(e) {
 
 export const submitToGoogleSheets = async (formData: FormData): Promise<boolean> => {
   // For demo purposes, if no URL is configured, simulate success
-  if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'YOUR_GOOGLE_SHEETS_WEB_APP_URL_HERE') {
+  if (!GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/AKfycbw_xqEHZwnMVu33sh-m_DmNoKTjGj6Qzoj028LKhCjRNsL1GScTzk6-7_yyotP5upe4/exec') {
     console.log('Google Sheets integration not configured. Form data:', formData);
     
     // Simulate API call delay
