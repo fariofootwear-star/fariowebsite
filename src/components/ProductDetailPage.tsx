@@ -243,10 +243,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     {product.colors.map((color) => (
                       <motion.button
                         key={color}
-                        className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-colors ${
+                        className={`w-14 h-14 rounded-full border-3 flex items-center justify-center transition-all duration-200 ${
                           selectedColor === color 
-                            ? 'border-purple-500 ring-2 ring-purple-200' 
-                            : 'border-gray-300'
+                            ? 'border-cyan-500 ring-4 ring-cyan-200 shadow-lg' 
+                            : 'border-gray-300 hover:border-gray-400 hover:shadow-md'
                         } ${
                           color.toLowerCase() === 'white' ? 'bg-white' :
                           color.toLowerCase() === 'black' ? 'bg-black' :
@@ -258,26 +258,26 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                           'bg-gray-400'
                         }`}
                         onClick={() => setSelectedColor(color)}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
                         title={color}
                       >
                         {selectedColor === color && (
-                          <Check className={`w-4 h-4 ${
+                          <Check className={`w-5 h-5 ${
                             color.toLowerCase() === 'white' ? 'text-gray-800' : 'text-white'
                           }`} />
                         )}
                       </motion.button>
                     ))}
                   </div>
-                  <p className="text-sm text-gray-500">Selected: {selectedColor}</p>
+                  <p className="text-sm font-medium text-gray-700">Selected: <span className="text-cyan-600">{selectedColor}</span></p>
                 </div>
 
                 {/* Size Selection */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-gray-900">Size</h3>
-                    <button className="text-sm text-purple-600 hover:underline">
+                    <button className="text-sm text-cyan-600 hover:text-cyan-700 hover:underline font-medium">
                       Size Guide
                     </button>
                   </div>
@@ -285,13 +285,13 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     {product.sizes.map((size) => (
                       <motion.button
                         key={size}
-                        className={`py-2 px-4 border rounded-lg text-center transition-colors ${
+                        className={`py-3 px-4 border-2 rounded-xl text-center font-semibold transition-all duration-200 ${
                           selectedSize === size
-                            ? 'border-purple-500 bg-purple-50 text-purple-700'
-                            : 'border-gray-200 hover:border-gray-300'
+                            ? 'border-cyan-500 bg-cyan-50 text-cyan-700 shadow-md'
+                            : 'border-gray-200 text-gray-700 hover:border-cyan-300 hover:bg-gray-50'
                         }`}
                         onClick={() => setSelectedSize(size)}
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         {size}
@@ -303,20 +303,28 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 {/* Quantity */}
                 <div className="space-y-3">
                   <h3 className="text-lg font-semibold text-gray-900">Quantity</h3>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-4">
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={decrementQuantity}
                       disabled={quantity <= 1}
+                      className={`w-10 h-10 rounded-xl border-2 transition-all duration-200 ${
+                        quantity <= 1
+                          ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
+                          : 'border-cyan-500 bg-white text-cyan-600 hover:bg-cyan-50 hover:border-cyan-600 active:bg-cyan-100'
+                      }`}
                     >
                       <Minus className="w-4 h-4" />
                     </Button>
-                    <span className="text-lg font-medium w-12 text-center">{quantity}</span>
+                    <span className="text-xl font-bold text-gray-900 w-16 text-center bg-gray-50 py-2 px-4 rounded-xl border-2 border-gray-200">
+                      {quantity}
+                    </span>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={incrementQuantity}
+                      className="w-10 h-10 rounded-xl border-2 border-cyan-500 bg-white text-cyan-600 hover:bg-cyan-50 hover:border-cyan-600 active:bg-cyan-100 transition-all duration-200"
                     >
                       <Plus className="w-4 h-4" />
                     </Button>
@@ -335,7 +343,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       className={`w-full py-4 text-lg font-semibold transition-all duration-300 ${
                         isAddedToCart
                           ? 'bg-green-600 hover:bg-green-700'
-                          : 'bg-gradient-to-r from-purple-600 to-teal-600 hover:from-purple-700 hover:to-teal-700'
+                          : 'bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700'
                       }`}
                     >
                       {isAddedToCart ? (
@@ -352,7 +360,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     </Button>
                   </motion.div>
 
-                  <Button variant="outline" className="w-full py-4 text-lg">
+                  <Button variant="outline" className="w-full py-4 text-lg border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-600 hover:text-white">
                     <Zap className="w-5 h-5 mr-2" />
                     Buy Now
                   </Button>
@@ -360,27 +368,27 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
                 {/* Features */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <Card>
+                  <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
                     <CardContent className="p-4 text-center">
                       <Truck className="w-8 h-8 text-green-600 mx-auto mb-2" />
                       <p className="text-sm font-medium text-gray-900">Free Delivery</p>
-                      <p className="text-xs text-gray-500">Above ₹499</p>
+                      <p className="text-xs text-gray-600">Above ₹499</p>
                     </CardContent>
                   </Card>
                   
-                  <Card>
+                  <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
                     <CardContent className="p-4 text-center">
                       <RotateCcw className="w-8 h-8 text-blue-600 mx-auto mb-2" />
                       <p className="text-sm font-medium text-gray-900">Easy Returns</p>
-                      <p className="text-xs text-gray-500">7 days return</p>
+                      <p className="text-xs text-gray-600">7 days return</p>
                     </CardContent>
                   </Card>
                   
-                  <Card>
+                  <Card className="bg-gradient-to-br from-cyan-50 to-cyan-100 border-cyan-200">
                     <CardContent className="p-4 text-center">
-                      <Shield className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                      <Shield className="w-8 h-8 text-cyan-600 mx-auto mb-2" />
                       <p className="text-sm font-medium text-gray-900">Warranty</p>
-                      <p className="text-xs text-gray-500">1 year warranty</p>
+                      <p className="text-xs text-gray-600">1 year warranty</p>
                     </CardContent>
                   </Card>
                 </div>

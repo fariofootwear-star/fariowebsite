@@ -1,3 +1,19 @@
+/**
+ * CollectionsPage Component
+ * 
+ * PRODUCT IMAGE UPLOAD FEATURE:
+ * To enable manual product image uploads instead of Unsplash URLs:
+ * 1. Import ProductImageUpload component: import ProductImageUpload from './ProductImageUpload';
+ * 2. Replace the static 'image' URLs in the products array with uploaded image paths
+ * 3. Use ProductImageUpload component in an admin panel or product management interface
+ * 4. Store uploaded images in your backend/CDN and reference them in the products data
+ * 
+ * For production deployment:
+ * - Set up image storage (AWS S3, Cloudinary, or similar)
+ * - Create admin interface with ProductImageUpload component
+ * - Update product data to use uploaded image URLs
+ */
+
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -11,7 +27,8 @@ import {
   ShoppingCart,
   ArrowLeft,
   ChevronDown,
-  X
+  X,
+  Check
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -48,7 +65,8 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState('name');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [priceRange, setPriceRange] = useState(2000);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(5000);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
@@ -137,13 +155,41 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
       colors: ["Gray", "Black", "Navy"],
       sizes: ["One Size"],
       description: "Versatile backpack perfect for work, travel, or everyday use."
+    },
+    {
+      id: 7,
+      name: "Performance Running Socks",
+      category: "socks",
+      price: 349,
+      image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=400&fit=crop",
+      rating: 4.7,
+      reviews: 145,
+      isNew: true,
+      colors: ["Black", "White", "Blue", "Red"],
+      sizes: ["S", "M", "L", "XL"],
+      description: "High-performance running socks with arch support and cushioning."
+    },
+    {
+      id: 8,
+      name: "Merino Wool Dress Socks",
+      category: "socks",
+      price: 499,
+      originalPrice: 699,
+      image: "https://images.unsplash.com/photo-1631899846987-53098a7df2db?w=400&h=400&fit=crop",
+      rating: 4.9,
+      reviews: 98,
+      isSale: true,
+      colors: ["Navy", "Black", "Gray", "Brown"],
+      sizes: ["M", "L", "XL"],
+      description: "Premium merino wool dress socks for all-day comfort and style."
     }
   ];
 
   const categories = [
     { value: 'all', label: 'All Products' },
     { value: 'shoes', label: 'Shoes' },
-    { value: 'socks', label: 'Socks' }
+    { value: 'socks', label: 'Socks' },
+    { value: 'bags', label: 'Bags' }
   ];
 
   const sortOptions = [
@@ -160,11 +206,12 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
   const availableSizes = ['6', '7', '8', '9', '10', '11', '12', 'S', 'M', 'L', 'XL', 'One Size'];
 
   const filteredAndSortedProducts = useMemo(() => {
-    // First filter out bags category, then apply other filters
-    let filtered = products.filter(product => product.category !== 'bags').filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    // Apply all filters
+    let filtered = products.filter(product => {
+      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                           product.description.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-      const matchesPrice = product.price <= priceRange;
+      const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
       const matchesBrands = selectedBrands.length === 0 || selectedBrands.some(brand => product.name.toLowerCase().includes(brand.toLowerCase()));
       const matchesColors = selectedColors.length === 0 || selectedColors.some(color => product.colors.includes(color));
       const matchesSizes = selectedSizes.length === 0 || selectedSizes.some(size => product.sizes.includes(size));
@@ -191,7 +238,7 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
     });
 
     return filtered;
-  }, [products, searchTerm, selectedCategory, sortBy, priceRange, selectedBrands, selectedColors, selectedSizes, inStock, onSale]);
+  }, [products, searchTerm, selectedCategory, sortBy, minPrice, maxPrice, selectedBrands, selectedColors, selectedSizes, inStock, onSale]);
 
   const toggleFavorite = (productId: number) => {
     setFavorites(prev => {
@@ -212,6 +259,7 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       className="group cursor-pointer"
+      onClick={() => onProductSelect(product)}
     >
       <Card className="overflow-hidden hover:shadow-xl transition-all duration-300">
         <div className="relative">
@@ -219,7 +267,6 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
             src={product.image}
             alt={product.name}
             className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-            onClick={() => onProductSelect(product)}
           />
           
           {/* Badges */}
@@ -250,18 +297,22 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
           </motion.button>
 
           {/* Quick Actions */}
-          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <div className="flex gap-2">
               <Button
                 size="sm"
-                className="bg-white/90 text-gray-900 hover:bg-white"
-                onClick={() => onProductSelect(product)}
+                className="bg-white text-gray-900 hover:bg-gray-100 shadow-lg"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onProductSelect(product);
+                }}
               >
                 Quick View
               </Button>
               <Button
                 size="sm"
-                className="bg-purple-600 hover:bg-purple-700"
+                className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700 text-white shadow-lg"
+                onClick={(e) => e.stopPropagation()}
               >
                 <ShoppingCart className="w-4 h-4" />
               </Button>
@@ -351,16 +402,26 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
 
                 <div className="flex items-center space-x-2">
                   <Button
-                    variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                    variant="outline"
                     size="sm"
                     onClick={() => setViewMode('grid')}
+                    className={`w-10 h-10 rounded-xl border-2 transition-all duration-200 ${
+                      viewMode === 'grid' 
+                        ? 'bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-700 hover:text-white shadow-md' 
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 hover:text-gray-900'
+                    }`}
                   >
                     <Grid3X3 className="w-4 h-4" />
                   </Button>
                   <Button
-                    variant={viewMode === 'list' ? 'default' : 'ghost'}
+                    variant="outline"
                     size="sm"
                     onClick={() => setViewMode('list')}
+                    className={`w-10 h-10 rounded-xl border-2 transition-all duration-200 ${
+                      viewMode === 'list' 
+                        ? 'bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-700 hover:text-white shadow-md' 
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 hover:text-gray-900'
+                    }`}
                   >
                     <List className="w-4 h-4" />
                   </Button>
@@ -390,10 +451,10 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-400 bg-white text-gray-900"
+                  className="px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 bg-white text-gray-900 font-medium hover:border-gray-400 transition-all cursor-pointer shadow-sm"
                 >
                   {categories.map(category => (
-                    <option key={category.value} value={category.value}>
+                    <option key={category.value} value={category.value} className="py-2">
                       {category.label}
                     </option>
                   ))}
@@ -403,10 +464,10 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-400 bg-white text-gray-900"
+                  className="px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 bg-white text-gray-900 font-medium hover:border-gray-400 transition-all cursor-pointer shadow-sm"
                 >
                   {sortOptions.map(option => (
-                    <option key={option.value} value={option.value}>
+                    <option key={option.value} value={option.value} className="py-2">
                       {option.label}
                     </option>
                   ))}
@@ -416,11 +477,15 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
                 <Button
                   variant="outline"
                   onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center space-x-2"
+                  className={`flex items-center space-x-2 border-2 rounded-xl px-5 py-3 font-medium transition-all duration-200 shadow-sm ${
+                    showFilters 
+                      ? 'bg-cyan-600 text-white border-cyan-600 hover:bg-cyan-700 shadow-md' 
+                      : 'bg-white text-gray-900 border-gray-300 hover:border-cyan-500 hover:bg-cyan-50 hover:text-cyan-700'
+                  }`}
                 >
                   <SlidersHorizontal className="w-4 h-4" />
                   <span>Filters</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`} />
                 </Button>
               </div>
 
@@ -434,23 +499,55 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
                     className="bg-gray-50 rounded-lg p-6"
                   >
                     <div className="grid lg:grid-cols-3 gap-6">
-                      {/* Price Range */}
+                      {/* Price Range - Input Boxes */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-3">
-                          Max Price: ₹{priceRange}
+                          Price Range
                         </label>
-                        <input
-                          type="range"
-                          min="100"
-                          max="2000"
-                          step="50"
-                          value={priceRange}
-                          onChange={(e) => setPriceRange(Number(e.target.value))}
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                        />
-                        <div className="flex justify-between text-xs text-gray-500 mt-1">
-                          <span>₹100</span>
-                          <span>₹2000</span>
+                        <div className="grid grid-cols-2 gap-3">
+                          {/* Minimum Price Input */}
+                          <div>
+                            <label className="block text-xs text-gray-600 mb-1">Min Price</label>
+                            <div className="relative">
+                              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">₹</span>
+                              <input
+                                type="number"
+                                min="0"
+                                max={maxPrice}
+                                step="50"
+                                value={minPrice}
+                                onChange={(e) => {
+                                  const value = Math.max(0, Number(e.target.value));
+                                  setMinPrice(value <= maxPrice ? value : maxPrice);
+                                }}
+                                className="w-full pl-7 pr-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 bg-white text-gray-900 font-medium transition-all"
+                                placeholder="0"
+                              />
+                            </div>
+                          </div>
+                          
+                          {/* Maximum Price Input */}
+                          <div>
+                            <label className="block text-xs text-gray-600 mb-1">Max Price</label>
+                            <div className="relative">
+                              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">₹</span>
+                              <input
+                                type="number"
+                                min={minPrice}
+                                step="50"
+                                value={maxPrice}
+                                onChange={(e) => {
+                                  const value = Number(e.target.value);
+                                  setMaxPrice(value >= minPrice ? value : minPrice);
+                                }}
+                                className="w-full pl-7 pr-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 bg-white text-gray-900 font-medium transition-all"
+                                placeholder="5000"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-2 text-xs text-gray-500 text-center">
+                          Showing: ₹{minPrice} - ₹{maxPrice}
                         </div>
                       </div>
 
@@ -582,14 +679,15 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
                     <div className="mt-6 pt-4 border-t border-gray-200">
                       <button
                         onClick={() => {
-                          setPriceRange(2000);
+                          setMinPrice(0);
+                          setMaxPrice(5000);
                           setSelectedBrands([]);
                           setSelectedColors([]);
                           setSelectedSizes([]);
                           setInStock(false);
                           setOnSale(false);
                         }}
-                        className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+                        className="text-sm text-cyan-600 hover:text-cyan-700 font-medium hover:underline transition-all"
                       >
                         Clear All Filters
                       </button>
