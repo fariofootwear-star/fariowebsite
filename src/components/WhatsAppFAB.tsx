@@ -8,7 +8,7 @@ interface WhatsAppFABProps {
 }
 
 const WhatsAppFAB: React.FC<WhatsAppFABProps> = ({ 
-  phoneNumber = "919876543210", // Default Indian number format
+  phoneNumber = "919566752486", // Default Indian number format
   message = "Hi! I'm interested in FARIO footwear. Can you help me?" 
 }) => {
   const handleWhatsAppClick = () => {

@@ -300,7 +300,7 @@ const HeroSection = ({ onExploreCollection }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-              Step In,
+              Step I,
               </motion.span>
               <motion.span 
                 className="block bg-gradient-to-r from-cyan-200 via-cyan-100 to-white bg-clip-text text-transparent"
