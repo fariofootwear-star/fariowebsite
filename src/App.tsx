@@ -39,18 +39,18 @@ import {
 import farioLogo from 'figma:asset/2fbb3db6ff6253ade9152b8169134bbbdda77108.png';
 
 // Import images
-const heroShoeImage = "https://images.unsplash.com/photo-1597594839535-d7ce3ac7392a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwc25lYWtlcnMlMjBoZXJvJTIwc2hvdHxlbnwxfHx8fDE3NTY5MTUyNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const floatingShoeImage = "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmbG9hdGluZyUyMHNob2VzJTIwcHJvZHVjdCUyMHBob3RvZ3JhcGh5fGVufDF8fHx8MTc1NjkxNTI3Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const studioShoeImage = "https://images.unsplash.com/photo-1578269174432-a8073d86c2e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBmb290d2VhciUyMHN0dWRpbyUyMHNob3R8ZW58MXx8fHwxNzU2OTE1Mjc2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+const heroShoeImage = "https://lh3.googleusercontent.com/d/1-MpRu-Bhu1dsUHB1Z62vQeh5qSCAMJBU";
+const floatingShoeImage = "https://lh3.googleusercontent.com/d/1rNQ-9y8gYT9HKlGwdbu2H98CqmMWO2LJ";
+const studioShoeImage ="https://lh3.googleusercontent.com/d/1-MpRu-Bhu1dsUHB1Z62vQeh5qSCAMJBU";
 const levitationShoeImage = "https://images.unsplash.com/photo-1616615965190-08884c4d85c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbmVha2VycyUyMGxldml0YXRpb24lMjBwaG90b2dyYXBoeXxlbnwxfHx8fDE3NTY5MTUyNzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const lifestyleImage = "https://images.unsplash.com/photo-1726133812290-1fcc8a0658a4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhdGhsZXRpYyUyMHNob2VzJTIwbGlmZXN0eWxlJTIwbW9kZWx8ZW58MXx8fHwxNzU2OTEzNjkyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const collectionImage = "https://images.unsplash.com/photo-1652631631797-af8035ed38fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwZm9vdHdlYXIlMjBjb2xsZWN0aW9ufGVufDF8fHx8MTc1NjkxMzY5Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const packagingImage = "https://images.unsplash.com/photo-1712749102695-d9586743a0c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaG9lJTIwcGFja2FnaW5nJTIwYm94fGVufDF8fHx8MTc1NjkxMzY5Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const modelImage = "https://images.unsplash.com/photo-1756276937647-36ca60d086d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwbW9kZWwlMjB3ZWFyaW5nJTIwc25lYWtlcnN8ZW58MXx8fHwxNzU2OTEzNjkyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const shoesImage = "https://images.unsplash.com/photo-1597594839535-d7ce3ac7392a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwc25lYWtlcnMlMjBoZXJvJTIwc2hvdHxlbnwxfHx8fDE3NTY5MTUyNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+const lifestyleImage = "https://lh3.googleusercontent.com/d/1DssonQYpkjLBmrV88JyA_TEUAK7aQjZz";
+const collectionImage = "https://lh3.googleusercontent.com/d/1qQoqTIQqmTPi5uK_Gz6BEEeUwfxlwuHe";
+const packagingImage = "https://lh3.googleusercontent.com/d/1qQoqTIQqmTPi5uK_Gz6BEEeUwfxlwuHe";
+const modelImage = "https://lh3.googleusercontent.com/d/1LuQCGYJ6V9-KRu8Yi6OVadZq_nYZrxyZ";
+const shoesImage = "https://lh3.googleusercontent.com/d/1n1HSbw1WJwwIKDNa5eB3rEJm6g1km1v2";
 const socksImage = "https://images.unsplash.com/photo-1608357746078-342b38f738c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwc29ja3MlMjBmYXNoaW9ufGVufDF8fHx8MTc1NzEzMzkxN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 const bagsImage = "https://images.unsplash.com/photo-1584917865442-de89df76afd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiYWdzJTIwZmFzaGlvbiUyMGFjY2Vzc29yaWVzfGVufDF8fHx8MTc1NzEzMzkyMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const lookbookImage = "https://images.unsplash.com/photo-1716513312004-9a7ebd4a7182?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsaWZlc3R5bGUlMjBmb290d2VhciUyMGxvb2tib29rfGVufDF8fHx8MTc1NjkxMzY5N3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+const lookbookImage = "https://lh3.googleusercontent.com/d/1d1tGt7NGjosihmea9WEZiF5GeLL0XsDx";
 
 // Animation variants
 const fadeInUp = {
@@ -170,7 +170,7 @@ const Navigation: React.FC<NavigationProps> = ({ onExploreCollection, onShowCont
                   }
                 }}
               >
-                Join Waitlist
+                Join Now
               </Button>
             </motion.div>
           </div>
@@ -466,11 +466,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreCollection }) => {
                 }}
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="text-center">
+                {/* <div className="text-center">
                   <p className="text-xs text-gray-500 uppercase tracking-wide">Starting from</p>
                   <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-500 to-teal-500 bg-clip-text text-transparent">₹699</p>
                   <p className="text-xs text-gray-400">Premium Quality</p>
-                </div>
+                </div> */}
               </motion.div>
 
               <motion.div
