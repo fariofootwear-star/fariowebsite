@@ -390,9 +390,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreCollection }) => {
               variants={fadeInUp}
             >
               {[
-                { icon: Star, text: "4.2 / 5 Rating", subtext: "Reviewed by 2,847 students", color: "text-yellow-400" },
-                { icon: Users, text: "50K+ Satisfied Institutions", subtext: "India level", color: "text-cyan-400" },
-                { icon: TrendingUp, text: "89% Satisfaction", subtext: "Rate", color: "text-teal-400" }
+                { icon: Star, text: "4.9 / 5 Rating", subtext: "Reviewed by 25000+ students", color: "text-yellow-400" },
+                { icon: Users, text: "100K+ Satisfied Institutions", subtext: "India level", color: "text-cyan-400" },
+                { icon: TrendingUp, text: "95% Satisfaction", subtext: "Rate", color: "text-teal-400" }
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -664,8 +664,8 @@ const BrandStorySection = () => {
                   <p className="text-gray-200"> Satisfied Institutions</p>
                 </div>
                 <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
-                  <h3 className="text-2xl font-bold text-teal-400 mb-2">15+</h3>
-                  <p className="text-gray-200">Shoe Categories</p>
+                  <h3 className="text-2xl font-bold text-teal-400 mb-2">25000+</h3>
+                  <p className="text-gray-200">Students Using FARIO</p>
                 </div>
               </div>
             </AnimatedText>
@@ -1287,98 +1287,98 @@ const USPSection = () => {
   );
 };
 
-// Testimonials Section
-const TestimonialsSection = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      role: "Fashion Blogger",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b3df?w=150&h=150&fit=crop&crop=face",
-      content: "FARIO shoes are absolutely amazing! The comfort and style combination is unmatched. I've been wearing them daily for months.",
-      rating: 5
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "Fitness Instructor",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "The durability and support these shoes provide is incredible. Perfect for my active lifestyle and still look great.",
-      rating: 5
-    },
-    {
-      id: 3,
-      name: "Emma Davis",
-      role: "Marketing Manager",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-      content: "Love the sustainable packaging and the shoes are so comfortable. FARIO has become my go-to footwear brand!",
-      rating: 5
-    }
-  ];
+// // Testimonials Section
+// const TestimonialsSection = () => {
+//   const testimonials = [
+//     {
+//       id: 1,
+//       name: "Sarah Johnson",
+//       role: "Fashion Blogger",
+//       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b3df?w=150&h=150&fit=crop&crop=face",
+//       content: "FARIO shoes are absolutely amazing! The comfort and style combination is unmatched. I've been wearing them daily for months.",
+//       rating: 5
+//     },
+//     {
+//       id: 2,
+//       name: "Michael Chen",
+//       role: "Fitness Instructor",
+//       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+//       content: "The durability and support these shoes provide is incredible. Perfect for my active lifestyle and still look great.",
+//       rating: 5
+//     },
+//     {
+//       id: 3,
+//       name: "Emma Davis",
+//       role: "Marketing Manager",
+//       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+//       content: "Love the sustainable packaging and the shoes are so comfortable. FARIO has become my go-to footwear brand!",
+//       rating: 5
+//     }
+//   ];
 
-  return (
-    <section className="py-24 bg-[#1a4b56]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <AnimatedText>
-            <Badge className="mb-6 bg-cyan-400/20 text-cyan-100 border-cyan-300/30 px-4 py-2">
-              Testimonials
-            </Badge>
-          </AnimatedText>
+//   return (
+//     <section className="py-24 bg-[#1a4b56]">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         <div className="text-center mb-16">
+//           <AnimatedText>
+//             <Badge className="mb-6 bg-cyan-400/20 text-cyan-100 border-cyan-300/30 px-4 py-2">
+//               Testimonials
+//             </Badge>
+//           </AnimatedText>
 
-          <AnimatedText>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Our Happy Customers
-            </h2>
-          </AnimatedText>
-        </div>
+//           <AnimatedText>
+//             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+//               Our Happy Customers
+//             </h2>
+//           </AnimatedText>
+//         </div>
 
-        <motion.div
-          className="grid md:grid-cols-3 gap-8"
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-        >
-          {testimonials.map((testimonial) => (
-            <motion.div
-              key={testimonial.id}
-              variants={fadeInUp}
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="p-8 h-full bg-white/10 backdrop-blur-sm border-white/10">
-                <div className="flex items-center mb-4">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  "{testimonial.content}"
-                </p>
-                <div className="flex items-center">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4"
-                  />
-                  <div>
-                    <h4 className="font-semibold text-white">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-gray-400">
-                      {testimonial.role}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+//         <motion.div
+//           className="grid md:grid-cols-3 gap-8"
+//           variants={staggerContainer}
+//           initial="initial"
+//           whileInView="animate"
+//           viewport={{ once: true }}
+//         >
+//           {testimonials.map((testimonial) => (
+//             <motion.div
+//               key={testimonial.id}
+//               variants={fadeInUp}
+//               whileHover={{ y: -5 }}
+//               transition={{ duration: 0.3 }}
+//             >
+//               <Card className="p-8 h-full bg-white/10 backdrop-blur-sm border-white/10">
+//                 <div className="flex items-center mb-4">
+//                   {Array.from({ length: testimonial.rating }).map((_, i) => (
+//                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+//                   ))}
+//                 </div>
+//                 <p className="text-gray-300 mb-6 leading-relaxed">
+//                   "{testimonial.content}"
+//                 </p>
+//                 <div className="flex items-center">
+//                   <img
+//                     src={testimonial.avatar}
+//                     alt={testimonial.name}
+//                     className="w-12 h-12 rounded-full mr-4"
+//                   />
+//                   <div>
+//                     <h4 className="font-semibold text-white">
+//                       {testimonial.name}
+//                     </h4>
+//                     <p className="text-sm text-gray-400">
+//                       {testimonial.role}
+//                     </p>
+//                   </div>
+//                 </div>
+//               </Card>
+//             </motion.div>
+//           ))}
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
 
 // Lifestyle Gallery
 const LifestyleGallery = () => {
@@ -1627,9 +1627,9 @@ const WaitlistSection = () => {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {[
-              { number: '50+', label: 'Insitutional Investors' },
-              { number: '3469+', label: 'Students Using FARIO' },
-              { number: '4.2⭐', label: 'Comfortable Rating' }
+              { number: '100+', label: 'Insitutional Investors' },
+              { number: '25000+', label: 'Students Using FARIO' },
+              { number: '4.9⭐', label: 'Comfortable Rating' }
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -2169,6 +2169,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenLegalPage }) => {
               </p>
               <div className="flex items-center space-x-4 text-xs text-gray-500">
                 <span>Made with ❤️ by KREATEUP <a href="http://www.kreateup.in">www.kreateup.in</a></span>
+                <span>Instagram<a href="https://www.instagram.com/kreateup.in/">kreateup.in</a></span>
                 <span>•</span>
                 <span>Version 1.0</span>
               </div>
@@ -2242,7 +2243,7 @@ const App = () => {
       {/* <PackagingSection /> */}
       {/* <InfographicSection /> */}
       <USPSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <MissionVisionSection />
       <LifestyleGallery />
       <ContactDetails />
