@@ -1975,7 +1975,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenLegalPage }) => {
                 {/* Social Links */}
                 <div className="flex space-x-4 mb-8">
                   {[
-                    { Icon: Instagram, href: '#', label: 'Instagram' },
+                    { Icon: Instagram, href: 'https://www.instagram.com/fario.in/', label: 'Instagram' },
                     { Icon: Facebook, href: '#', label: 'Facebook' },
                     { Icon: Twitter, href: '#', label: 'Twitter' },
                     { Icon: Linkedin, href: '#', label: 'LinkedIn' }
