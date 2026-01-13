@@ -1,38 +1,25 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  ArrowLeft, 
-  Star, 
-  Heart, 
-  ShoppingCart, 
-  Truck, 
-  RotateCcw, 
-  Shield, 
-  Plus, 
+import {
+  ArrowLeft,
+  Star,
+  Heart,
+  ShoppingCart,
+  Truck,
+  RotateCcw,
+  Shield,
+  Plus,
   Minus,
   Check,
   Share2,
-  Zap
+  Zap,
+  Play
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Card, CardContent } from './ui/card';
 
-interface Product {
-  id: number;
-  name: string;
-  category: 'shoes' | 'socks' | 'bags';
-  price: number;
-  originalPrice?: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  isNew?: boolean;
-  isSale?: boolean;
-  colors: string[];
-  sizes: string[];
-  description: string;
-}
+import { Product } from '../types';
 
 interface ProductDetailPageProps {
   product: Product | null;
@@ -54,13 +41,42 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
-  // Mock additional images
-  const additionalImages = [
-    product?.image,
-    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop"
-  ].filter(Boolean);
+  // Combine gallery images and video into media items
+  const mediaItems = React.useMemo(() => {
+    let items: { type: 'image' | 'video', url: string, thumbnail?: string }[] = [];
+
+    if (product?.gallery && product.gallery.length > 0) {
+      items = product.gallery.map(url => ({ type: 'image', url }));
+    } else if (product?.image) {
+      items = [{ type: 'image', url: product.image }];
+    }
+
+    if (product?.video) {
+      // Extract Google Drive ID to generate a thumbnail
+      const driveIdMatch = product.video.match(/\/d\/([^/]+)/);
+      const videoThumbnail = driveIdMatch
+        ? `https://drive.google.com/thumbnail?id=${driveIdMatch[1]}&sz=w400`
+        : undefined;
+
+      items.push({
+        type: 'video',
+        url: product.video,
+        thumbnail: videoThumbnail
+      });
+    }
+
+    return items;
+  }, [product]);
+
+  // Image tag needs referrerPolicy for Google Drive images
+  const ImageComponent = ({ src, alt, className }: { src: string, alt: string, className?: string }) => (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      referrerPolicy="no-referrer"
+    />
+  );
 
   React.useEffect(() => {
     if (product) {
@@ -81,7 +97,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
   if (!product) return null;
 
-  const discount = product.originalPrice ? 
+  const discount = product.originalPrice ?
     Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
 
   return (
@@ -99,8 +115,8 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center space-x-4">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     size="sm"
                     onClick={onBack}
                     className="p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -117,8 +133,8 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <Button variant="ghost" size="sm">
                     <Share2 className="w-4 h-4" />
                   </Button>
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     size="sm"
                     onClick={() => setIsFavorite(!isFavorite)}
                     className={isFavorite ? 'text-red-500' : ''}
@@ -134,17 +150,26 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Image Gallery */}
               <div className="space-y-4">
-                {/* Main Image */}
-                <motion.div 
+                {/* Main Media Display */}
+                <motion.div
                   className="relative bg-gray-100 rounded-2xl overflow-hidden aspect-square"
                   layoutId={`product-image-${product.id}`}
                 >
-                  <img
-                    src={additionalImages[activeImageIndex]}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                  
+                  {mediaItems[activeImageIndex]?.type === 'video' ? (
+                    <iframe
+                      src={mediaItems[activeImageIndex].url}
+                      className="w-full h-full border-0"
+                      allow="autoplay"
+                      title="Product Video"
+                    />
+                  ) : (
+                    <ImageComponent
+                      src={mediaItems[activeImageIndex]?.url || product.image || ''}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+
                   {/* Badges */}
                   <div className="absolute top-4 left-4 flex flex-col gap-2">
                     {product.isNew && (
@@ -174,23 +199,45 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   </div>
                 </motion.div>
 
-                {/* Thumbnail Images */}
+                {/* Thumbnail Media */}
                 <div className="grid grid-cols-4 gap-3">
-                  {additionalImages.map((image, index) => (
+                  {mediaItems.map((item, index) => (
                     <motion.button
                       key={index}
-                      className={`aspect-square rounded-lg overflow-hidden border-2 transition-colors ${
-                        activeImageIndex === index ? 'border-purple-500' : 'border-gray-200'
-                      }`}
+                      className={`aspect-square rounded-lg overflow-hidden border-2 transition-colors relative ${activeImageIndex === index ? 'border-cyan-500' : 'border-gray-200'
+                        }`}
                       onClick={() => setActiveImageIndex(index)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <img
-                        src={image}
-                        alt={`${product.name} ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
+                      {item.type === 'video' ? (
+                        <div className="w-full h-full relative">
+                          {item.thumbnail ? (
+                            <ImageComponent
+                              src={item.thumbnail}
+                              alt="Video thumbnail"
+                              className="w-full h-full object-cover opacity-60"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-900" />
+                          )}
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <Play className="w-8 h-8 text-white fill-current drop-shadow-lg" />
+                          </div>
+                        </div>
+                      ) : (
+                        <ImageComponent
+                          src={item.url}
+                          alt={`${product.name} thumbnail ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+
+                      {item.type === 'video' && (
+                        <div className="absolute bottom-1 right-1 bg-black/60 rounded px-1">
+                          <span className="text-[10px] text-white font-bold">VIDEO</span>
+                        </div>
+                      )}
                     </motion.button>
                   ))}
                 </div>
@@ -204,11 +251,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star
                         key={i}
-                        className={`w-5 h-5 ${
-                          i < Math.floor(product.rating) 
-                            ? 'text-yellow-400 fill-current' 
-                            : 'text-gray-300'
-                        }`}
+                        className={`w-5 h-5 ${i < Math.floor(product.rating)
+                          ? 'text-yellow-400 fill-current'
+                          : 'text-gray-300'
+                          }`}
                       />
                     ))}
                     <span className="ml-2 text-lg font-medium text-gray-900">{product.rating}</span>
@@ -243,29 +289,26 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     {product.colors.map((color) => (
                       <motion.button
                         key={color}
-                        className={`w-14 h-14 rounded-full border-3 flex items-center justify-center transition-all duration-200 ${
-                          selectedColor === color 
-                            ? 'border-cyan-500 ring-4 ring-cyan-200 shadow-lg' 
-                            : 'border-gray-300 hover:border-gray-400 hover:shadow-md'
-                        } ${
-                          color.toLowerCase() === 'white' ? 'bg-white' :
-                          color.toLowerCase() === 'black' ? 'bg-black' :
-                          color.toLowerCase() === 'gray' ? 'bg-gray-400' :
-                          color.toLowerCase() === 'navy' ? 'bg-blue-900' :
-                          color.toLowerCase() === 'brown' ? 'bg-amber-800' :
-                          color.toLowerCase() === 'tan' ? 'bg-amber-600' :
-                          color.toLowerCase() === 'blue' ? 'bg-blue-500' :
-                          'bg-gray-400'
-                        }`}
+                        className={`w-14 h-14 rounded-full border-3 flex items-center justify-center transition-all duration-200 ${selectedColor === color
+                          ? 'border-cyan-500 ring-4 ring-cyan-200 shadow-lg'
+                          : 'border-gray-300 hover:border-gray-400 hover:shadow-md'
+                          } ${color.toLowerCase() === 'white' ? 'bg-white' :
+                            color.toLowerCase() === 'black' ? 'bg-black' :
+                              color.toLowerCase() === 'gray' ? 'bg-gray-400' :
+                                color.toLowerCase() === 'navy' ? 'bg-blue-900' :
+                                  color.toLowerCase() === 'brown' ? 'bg-amber-800' :
+                                    color.toLowerCase() === 'tan' ? 'bg-amber-600' :
+                                      color.toLowerCase() === 'blue' ? 'bg-blue-500' :
+                                        'bg-gray-400'
+                          }`}
                         onClick={() => setSelectedColor(color)}
                         whileHover={{ scale: 1.1, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                         title={color}
                       >
                         {selectedColor === color && (
-                          <Check className={`w-5 h-5 ${
-                            color.toLowerCase() === 'white' ? 'text-gray-800' : 'text-white'
-                          }`} />
+                          <Check className={`w-5 h-5 ${color.toLowerCase() === 'white' ? 'text-gray-800' : 'text-white'
+                            }`} />
                         )}
                       </motion.button>
                     ))}
@@ -285,11 +328,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     {product.sizes.map((size) => (
                       <motion.button
                         key={size}
-                        className={`py-3 px-4 border-2 rounded-xl text-center font-semibold transition-all duration-200 ${
-                          selectedSize === size
-                            ? 'border-cyan-500 bg-cyan-50 text-cyan-700 shadow-md'
-                            : 'border-gray-200 text-gray-700 hover:border-cyan-300 hover:bg-gray-50'
-                        }`}
+                        className={`py-3 px-4 border-2 rounded-xl text-center font-semibold transition-all duration-200 ${selectedSize === size
+                          ? 'border-cyan-500 bg-cyan-50 text-cyan-700 shadow-md'
+                          : 'border-gray-200 text-gray-700 hover:border-cyan-300 hover:bg-gray-50'
+                          }`}
                         onClick={() => setSelectedSize(size)}
                         whileHover={{ scale: 1.05, y: -2 }}
                         whileTap={{ scale: 0.95 }}
@@ -309,11 +351,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       size="sm"
                       onClick={decrementQuantity}
                       disabled={quantity <= 1}
-                      className={`w-10 h-10 rounded-xl border-2 transition-all duration-200 ${
-                        quantity <= 1
-                          ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
-                          : 'border-cyan-500 bg-white text-cyan-600 hover:bg-cyan-50 hover:border-cyan-600 active:bg-cyan-100'
-                      }`}
+                      className={`w-10 h-10 rounded-xl border-2 transition-all duration-200 ${quantity <= 1
+                        ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'border-cyan-500 bg-white text-cyan-600 hover:bg-cyan-50 hover:border-cyan-600 active:bg-cyan-100'
+                        }`}
                     >
                       <Minus className="w-4 h-4" />
                     </Button>
@@ -340,11 +381,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     <Button
                       onClick={handleAddToCart}
                       disabled={!selectedColor || !selectedSize}
-                      className={`w-full py-4 text-lg font-semibold transition-all duration-300 ${
-                        isAddedToCart
-                          ? 'bg-green-600 hover:bg-green-700'
-                          : 'bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700'
-                      }`}
+                      className={`w-full py-4 text-lg font-semibold transition-all duration-300 ${isAddedToCart
+                        ? 'bg-green-600 hover:bg-green-700'
+                        : 'bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-700 hover:to-teal-700'
+                        }`}
                     >
                       {isAddedToCart ? (
                         <div className="flex items-center justify-center">
@@ -375,7 +415,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       <p className="text-xs text-gray-600">Above ₹499</p>
                     </CardContent>
                   </Card>
-                  
+
                   <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
                     <CardContent className="p-4 text-center">
                       <RotateCcw className="w-8 h-8 text-blue-600 mx-auto mb-2" />
@@ -383,7 +423,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       <p className="text-xs text-gray-600">7 days return</p>
                     </CardContent>
                   </Card>
-                  
+
                   <Card className="bg-gradient-to-br from-cyan-50 to-cyan-100 border-cyan-200">
                     <CardContent className="p-4 text-center">
                       <Shield className="w-8 h-8 text-cyan-600 mx-auto mb-2" />
@@ -421,7 +461,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {/* Reviews Section */}
             <div className="mt-16 border-t border-gray-200 pt-16">
               <h3 className="text-2xl font-bold text-gray-900 mb-8">Customer Reviews</h3>
-              
+
               <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-1">
                   <div className="bg-gray-50 rounded-lg p-6 text-center">
@@ -430,11 +470,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-5 h-5 ${
-                            i < Math.floor(product.rating) 
-                              ? 'text-yellow-400 fill-current' 
-                              : 'text-gray-300'
-                          }`}
+                          className={`w-5 h-5 ${i < Math.floor(product.rating)
+                            ? 'text-yellow-400 fill-current'
+                            : 'text-gray-300'
+                            }`}
                         />
                       ))}
                     </div>
@@ -472,11 +511,10 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                             {Array.from({ length: 5 }).map((_, i) => (
                               <Star
                                 key={i}
-                                className={`w-4 h-4 ${
-                                  i < review.rating 
-                                    ? 'text-yellow-400 fill-current' 
-                                    : 'text-gray-300'
-                                }`}
+                                className={`w-4 h-4 ${i < review.rating
+                                  ? 'text-yellow-400 fill-current'
+                                  : 'text-gray-300'
+                                  }`}
                               />
                             ))}
                           </div>

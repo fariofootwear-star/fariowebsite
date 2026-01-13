@@ -48,7 +48,7 @@ const collectionImage = "https://lh3.googleusercontent.com/d/1qQoqTIQqmTPi5uK_Gz
 const packagingImage = "https://lh3.googleusercontent.com/d/1qQoqTIQqmTPi5uK_Gz6BEEeUwfxlwuHe";
 const modelImage = "https://lh3.googleusercontent.com/d/1LuQCGYJ6V9-KRu8Yi6OVadZq_nYZrxyZ";
 const shoesImage = "https://lh3.googleusercontent.com/d/1n1HSbw1WJwwIKDNa5eB3rEJm6g1km1v2";
-const socksImage = "https://images.unsplash.com/photo-1608357746078-342b38f738c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcmVtaXVtJTIwc29ja3MlMjBmYXNoaW9ufGVufDF8fHx8MTc1NzEzMzkxN3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+const socksImage = "https://lh3.googleusercontent.com/d/1_n1w-wkzkN0D_pc9oTMdEZPqetnWYcZ_";
 const bagsImage = "https://images.unsplash.com/photo-1584917865442-de89df76afd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiYWdzJTIwZmFzaGlvbiUyMGFjY2Vzc29yaWVzfGVufDF8fHx8MTc1NzEzMzkyMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 const lookbookImage = "https://lh3.googleusercontent.com/d/1d1tGt7NGjosihmea9WEZiF5GeLL0XsDx";
 

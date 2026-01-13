@@ -145,7 +145,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({
                   transition={{ delay: 0.4 }}
                 >
                   <Badge className="bg-cyan-400/20 text-cyan-100 border-cyan-300/30 px-3 py-1 text-xs">
-                    Join 5,000+ Fashion Enthusiasts
+                    Join 50+ Institutional Investors
                   </Badge>
 
                   {/* Name Input */}

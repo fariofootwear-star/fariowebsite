@@ -75,7 +75,8 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
     laces_box: "https://lh3.googleusercontent.com/d/1LuQCGYJ6V9-KRu8Yi6OVadZq_nYZrxyZ",
     laces_mockup1: "https://lh3.googleusercontent.com/d/1qQoqTIQqmTPi5uK_Gz6BEEeUwfxlwuHe",
     laces_mockup2: "https://lh3.googleusercontent.com/d/1d1tGt7NGjosihmea9WEZiF5GeLL0XsDx",
-    silicon_tag: "https://lh3.googleusercontent.com/d/1y20o0TzV9A9QH6jMIcQCB2qv_BSjU1IK"
+    silicon_tag: "https://lh3.googleusercontent.com/d/1y20o0TzV9A9QH6jMIcQCB2qv_BSjU1IK",
+    support_socks_ankle_high: "https://lh3.googleusercontent.com/d/1_n1w-wkzkN0D_pc9oTMdEZPqetnWYcZ"
   };
   // Mock product data
   const products: Product[] = [
@@ -156,26 +157,26 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
       description: "FARIO velcro school shoes are designed for everyday school wear, offering comfort, durability, and a neat appearance. These shoes feature an easy velcro closure that allows kids to wear and remove them quickly. The cushioned insole provides all-day comfort, while the anti-skid sole ensures better grip and stability during walking and play. Made with a breathable mesh upper, these school shoes help keep feet fresh throughout long school hours. Ideal for daily use, FARIO school shoes combine practicality with long-lasting performance."
     },
 
-    {
-      id: 4,
-      name: "Premium Cotton Socks",
-      category: "socks",
-      price: 299,
-      image: images.velcro_front,          // main image
-      gallery: [                            // product gallery
-        images.velcro_front,
-        images.velcro_side,
-        images.velcro_back,
-        images.velcro_box,
-        images.silicon_tag
-      ],
-      video: "https://drive.google.com/file/d/1LQ-CwxI7sg5tY4CQuqeEnUcpvFS9-Tec/preview", rating: 4.6,
-      reviews: 89,
-      isNew: false,
-      colors: ["White", "Black", "Gray", "Navy"],
-      sizes: ["S", "M", "L", "XL"],
-      description: "Soft, breathable cotton socks with moisture-wicking technology."
-    },
+    // {
+    //   id: 4,
+    //   name: "Premium Cotton Socks",
+    //   category: "socks",
+    //   price: 299,
+    //   image: images.velcro_front,          // main image
+    //   gallery: [                            // product gallery
+    //     images.velcro_front,
+    //     images.velcro_side,
+    //     images.velcro_back,
+    //     images.velcro_box,
+    //     images.silicon_tag
+    //   ],
+    //   video: "https://drive.google.com/file/d/1LQ-CwxI7sg5tY4CQuqeEnUcpvFS9-Tec/preview", rating: 4.6,
+    //   reviews: 89,
+    //   isNew: false,
+    //   colors: ["White", "Black", "Gray", "Navy"],
+    //   sizes: ["S", "M", "L", "XL"],
+    //   description: "Soft, breathable cotton socks with moisture-wicking technology."
+    // },
     {
       id: 5,
       name: "Leather Messenger Bag",
@@ -190,14 +191,14 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
     },
     {
       id: 7,
-      name: "Support Socks Ankle High",
+      name: "Ankle High Socks",
       category: "socks",
       price: 399,
-      image: "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop",
+      image: "https://lh3.googleusercontent.com/d/1_n1w-wkzkN0D_pc9oTMdEZPqetnWYcZ_",
       rating: 4.5,
       reviews: 67,
       isNew: true,
-      colors: ["White", "Black", "Gray"],
+      colors: ["White"],
       sizes: ["S", "M", "L"],
       description: "Athletic socks with enhanced ankle support for sports activities."
     },
@@ -215,33 +216,33 @@ const CollectionsPage: React.FC<CollectionsPageProps> = ({
       sizes: ["One Size"],
       description: "Versatile backpack perfect for work, travel, or everyday use."
     },
-    {
-      id: 9,
-      name: "Performance Running Socks",
-      category: "socks",
-      price: 349,
-      image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=400&fit=crop",
-      rating: 4.7,
-      reviews: 145,
-      isNew: true,
-      colors: ["Black", "White", "Blue", "Red"],
-      sizes: ["S", "M", "L", "XL"],
-      description: "High-performance running socks with arch support and cushioning."
-    },
-    {
-      id: 10,
-      name: "Merino Wool Dress Socks",
-      category: "socks",
-      price: 499,
-      originalPrice: 699,
-      image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=400&fit=crop",
-      rating: 4.9,
-      reviews: 98,
-      isSale: true,
-      colors: ["Navy", "Black", "Gray", "Brown"],
-      sizes: ["M", "L", "XL"],
-      description: "Premium merino wool dress socks for all-day comfort and style."
-    },
+    // {
+    //   id: 9,
+    //   name: "Performance Running Socks",
+    //   category: "socks",
+    //   price: 349,
+    //   image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=400&fit=crop",
+    //   rating: 4.7,
+    //   reviews: 145,
+    //   isNew: true,
+    //   colors: ["Black", "White", "Blue", "Red"],
+    //   sizes: ["S", "M", "L", "XL"],
+    //   description: "High-performance running socks with arch support and cushioning."
+    // },
+    // {
+    //   id: 10,
+    //   name: "Merino Wool Dress Socks",
+    //   category: "socks",
+    //   price: 499,
+    //   originalPrice: 699,
+    //   image: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400&h=400&fit=crop",
+    //   rating: 4.9,
+    //   reviews: 98,
+    //   isSale: true,
+    //   colors: ["Navy", "Black", "Gray", "Brown"],
+    //   sizes: ["M", "L", "XL"],
+    //   description: "Premium merino wool dress socks for all-day comfort and style."
+    // },
     {
       id: 11,
       name: "FARIO Lace School Shoe S",

@@ -18,11 +18,12 @@ const ContactDetails: React.FC = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      title: "Visit Our Store",
+      title: "Our Head Office",
       details: [
-        "123 Fashion Street, Style District",
-        "Mumbai, Maharashtra 400001",
-        "India"
+        "FARIO Footwear,",
+        "D.No.36, Thaneerpandal Road,",
+        "Peelamedu East, Coimbatore South - 641004,",
+        "Tamil Nadu - India"
       ],
       color: "text-cyan-400",
       bgColor: "bg-cyan-400/20"
@@ -31,9 +32,9 @@ const ContactDetails: React.FC = () => {
       icon: Phone,
       title: "Call Us",
       details: [
-        "+91 98765 43210",
-        "+91 87654 32109",
-        "Toll Free: 1800-FARIO-01"
+        "+91 97519 13330"
+        // "+91 87654 32109",
+        // "Toll Free: 1800-FARIO-01"
       ],
       color: "text-teal-400",
       bgColor: "bg-teal-400/20"
@@ -42,9 +43,10 @@ const ContactDetails: React.FC = () => {
       icon: Mail,
       title: "Email Us",
       details: [
-        "hello@fario.in",
-        "support@fario.in",
-        "business@fario.in"
+        "fariofootwear@gmail.com",
+        "official@fario.in "
+        // "support@fario.in",
+        // "business@fario.in"
       ],
       color: "text-blue-400",
       bgColor: "bg-blue-400/20"
@@ -53,9 +55,7 @@ const ContactDetails: React.FC = () => {
       icon: Clock,
       title: "Business Hours",
       details: [
-        "Monday - Friday: 9:00 AM - 7:00 PM",
-        "Saturday: 10:00 AM - 6:00 PM",
-        "Sunday: 11:00 AM - 5:00 PM"
+        "Monday - Sunday: 9:00 AM - 10:00 PM"
       ],
       color: "text-green-400",
       bgColor: "bg-green-400/20"
