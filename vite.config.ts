@@ -4,7 +4,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "./", // Support custom domains and subpaths via relative paths
+  base: "/", // Standard root for custom domains
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
     alias: {
