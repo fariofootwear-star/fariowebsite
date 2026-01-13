@@ -41,7 +41,7 @@ import farioLogo from 'figma:asset/2fbb3db6ff6253ade9152b8169134bbbdda77108.png'
 // Import images
 const heroShoeImage = "https://lh3.googleusercontent.com/d/1-MpRu-Bhu1dsUHB1Z62vQeh5qSCAMJBU";
 const floatingShoeImage = "https://lh3.googleusercontent.com/d/1rNQ-9y8gYT9HKlGwdbu2H98CqmMWO2LJ";
-const studioShoeImage ="https://lh3.googleusercontent.com/d/1-MpRu-Bhu1dsUHB1Z62vQeh5qSCAMJBU";
+const studioShoeImage = "https://lh3.googleusercontent.com/d/1-MpRu-Bhu1dsUHB1Z62vQeh5qSCAMJBU";
 const levitationShoeImage = "https://images.unsplash.com/photo-1616615965190-08884c4d85c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbmVha2VycyUyMGxldml0YXRpb24lMjBwaG90b2dyYXBoeXxlbnwxfHx8fDE3NTY5MTUyNzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 const lifestyleImage = "https://lh3.googleusercontent.com/d/1DssonQYpkjLBmrV88JyA_TEUAK7aQjZz";
 const collectionImage = "https://lh3.googleusercontent.com/d/1qQoqTIQqmTPi5uK_Gz6BEEeUwfxlwuHe";
@@ -660,7 +660,7 @@ const BrandStorySection = () => {
             <AnimatedText>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
-                  <h3 className="text-2xl font-bold text-cyan-400 mb-2">50K+</h3>
+                  <h3 className="text-2xl font-bold text-cyan-400 mb-2">100K+</h3>
                   <p className="text-gray-200"> Satisfied Institutions</p>
                 </div>
                 <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
@@ -2171,7 +2171,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenLegalPage }) => {
                 <span>Made with ❤️ by KREATEUP <a href="http://www.kreateup.in">www.kreateup.in</a></span>
                 <span>Instagram<a href="https://www.instagram.com/kreateup.in/">kreateup.in</a></span>
                 <span>•</span>
-                <span>Version 1.0</span>
+                <span>Version 1.1 (Deployed: 2026-01-13 22:45)</span>
               </div>
             </div>
 
