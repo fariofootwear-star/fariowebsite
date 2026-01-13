@@ -1,17 +1,22 @@
+# Modern Footwear Landing Page
 
-  # Modern Footwear Landing Page
+This is a code bundle for Modern Footwear Landing Page. The original project is available at https://www.figma.com/design/bl70wcmDUhtiZxvkK3JiMd/Modern-Footwear-Landing-Page.
 
-  This is a code bundle for Modern Footwear Landing Page. The original project is available at https://www.figma.com/design/bl70wcmDUhtiZxvkK3JiMd/Modern-Footwear-Landing-Page.
+## Running the code
 
-  ## Running the code
+Run `npm i` to install the dependencies.
 
-  Run `npm i` to install the dependencies.
+Run `npm run dev` to start the development server.
 
-  Run `npm run dev` to start the development server.
+## Deployment Steps (Legacy)
 
 git add folder name / file name  folder name / file name  
 git commit -m "changed"
-git push origin master
+git push origin master -f
+
+manual delete old dist folder
+execute this command
+
 npm run build
 
 After running npm run build
