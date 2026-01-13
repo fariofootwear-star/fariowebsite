@@ -4,7 +4,7 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/fariowebsite/", // <-- critical for GitHub Pages
+  base: "./", // Support custom domains and subpaths via relative paths
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
     alias: {
