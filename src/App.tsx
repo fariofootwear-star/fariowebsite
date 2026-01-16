@@ -391,7 +391,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreCollection }) => {
             >
               {[
                 { icon: Star, text: "4.9 / 5 Rating", subtext: "Reviewed by 25000+ students", color: "text-yellow-400" },
-                { icon: Users, text: "100K+ Satisfied Institutions", subtext: "India level", color: "text-cyan-400" },
+                { icon: Users, text: "100+ Satisfied Institutions", subtext: "India level", color: "text-cyan-400" },
                 { icon: TrendingUp, text: "95% Satisfaction", subtext: "Rate", color: "text-teal-400" }
               ].map((item, index) => (
                 <motion.div
@@ -660,7 +660,7 @@ const BrandStorySection = () => {
             <AnimatedText>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
-                  <h3 className="text-2xl font-bold text-cyan-400 mb-2">100K+</h3>
+                  <h3 className="text-2xl font-bold text-cyan-400 mb-2">100+</h3>
                   <p className="text-gray-200"> Satisfied Institutions</p>
                 </div>
                 <div className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
